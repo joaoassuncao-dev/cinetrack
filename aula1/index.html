@@ -6,28 +6,71 @@
     <title>CineTrack</title>
 </head>
 <body>
-    <h1>CineTrack</h1>
-        <p><strong>Cinetrack</strong> é um sistema de gerenciamento de filmes.</p>
+    <!-- Header Nav com nome do site e botões de busca e status dos filmes -->
+    <header>
+        <h1><strong>CineTrack</strong></h1>
+        <input type="text" aria-label="adicionar"><button>+ Adicionar</button>
+        <br>
+        <nav aria-label="Filtros de status">
+            <button class="ativo">Todos</button>
+            <button class="ativo">Assistido</button>
+            <button class="ativo">Assistindo</button>
+            <button class="ativo">Quero assistir</button>
+        </nav>
+    </header>
+    <br>
+    <!-- Sessão principal onde ficam os filmes com capas e informações sobre os filmes -->
+    <main>
+        <section id="lista">
+            <!-- cada artcile representa o card de um filme -->
+            <article class="card">
+                <img src="https://m.media-amazon.com/images/I/61ddZ2RwnHL._AC_UF894,1000_QL80_.jpg" alt="Poster de La la Land" width="90">
+                <h2>La la land</h2>
+                <p>2014 - Musical</p>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+            <article class="card">
+                <img src="https://br.web.img2.acsta.net/medias/nmedia/18/97/04/22/20504502.jpg" alt="Poster Shrek 2" width="90">
+                <h2>Shrek 2</h2>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+            <article class="card">
+                <img src="https://i.pinimg.com/564x/0f/5b/fa/0f5bfacda6921a51234cd48f3606d45f.jpg" alt="Poster Carros 1" width="90">
+                <h2>Carros 1</h2>
+                <p>2005 - Animação</p>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+            <article class="card">
+                <img src="https://br.web.img3.acsta.net/r_1024_576/pictures/14/01/20/12/06/239820.jpg" alt="Poster O Grande Hotel Budaspeste" width="90">
+                <h2>O Grande Hotel Budapeste</h2>
+                <p>2016 - Drama</p>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxLaM5MizRJGp1VJ9LAPJW_etWDUs9LRlnmbXNBnvOgA&s=10" alt="Poster de O Castelo Animado" width="90">
+                <h2>O Castelo Animado</h2>
+                <p>2005 - Ficção Científica</p>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+            <article class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDykCm9hHod-k-e8oirNEOI5YGRx4G8XNB9CkuuZHXww&s=10" alt="Poster de O Espetacular Homem Aranha 2" width="90">
+                <h2>O Espetacular Homem Aranha 2</h2>
+                <p>2014 - Ação</p>
+                <p>Nota: ★★★★★</p>
+                <span class="badge">Assistido </span><button>editar</button><button>remover</button>
+            </article>
+        </section>
+    </main>
+    <br>
+    <!-- rodapé contendo copyright e aba pra adicionar novo filme -->
+    <footer>
         <a href="adicionar.html">Adicionar Filme</a>
-        <h2>Status possíveis.</h2>
-            <ul id="lista-status">
-                <li class="item-status">Assistido</li>
-                <li class="item-status">Assistindo</li>
-                <li class="item-status">Quero</li>
-            </ul>
-              
-        <h2> Meus filmes favoritos </h2>
-            <ol id="lista-favoritos">
-                <li class="item-favoritos">La la land</li>
-                <li class="item-favoritos">Shrek 2</li>
-                <li class="item-favoritos">Carros 1</li>
-            </ol>
-        <h2> Sobre La la land </h2>
-            <dl>
-                <dt>Diretor</dt>   <dd>Damien Chazelle</dd>
-                <dt>Ano</dt>       <dd>2017</dd>
-                <dt>Gênero</dt>    <dd>Drama, Musical, Romance</dd>
-            </dl>
         <p>&copy; 2025 Cinetrack</p>
+    </footer>
 </body>
 </html>

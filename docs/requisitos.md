@@ -1,4 +1,4 @@
-# Cinetrack
+    # Cinetrack
 - Cinetrack é um sistema web de catálogo de filmes, com cadastro, listagem, busca e filtros.
 
 ## Requisitos
