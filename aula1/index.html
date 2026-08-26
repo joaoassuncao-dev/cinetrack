@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineTrack</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header Nav com nome do site e botões de busca e status dos filmes -->
-    <header>
+    <header class="header">
         <h1><strong>CineTrack</strong></h1>
-        <input type="text" aria-label="adicionar"><button>+ Adicionar</button>
-        <br>
+        <input type="text" aria-label="adicionar" placeholder="Buscar Filme..."><button class="botaoAdicionar">+ Adicionar</button>
+    </header>
+    <br>
+    <!-- Sessão principal onde ficam os filmes com capas e informações sobre os filmes -->
+    <main>
         <nav aria-label="Filtros de status">
             <button class="ativo">Todos</button>
             <button class="ativo">Assistido</button>
             <button class="ativo">Assistindo</button>
             <button class="ativo">Quero assistir</button>
         </nav>
-    </header>
-    <br>
-    <!-- Sessão principal onde ficam os filmes com capas e informações sobre os filmes -->
-    <main>
         <section id="lista">
             <!-- cada artcile representa o card de um filme -->
             <article class="card">
                 <img src="https://m.media-amazon.com/images/I/61ddZ2RwnHL._AC_UF894,1000_QL80_.jpg" alt="Poster de La la Land" width="90">
-                <h2>La la land</h2>
+                <h2 class="title-card">La la land</h2>
                 <p>2014 - Musical</p>
                 <p>Nota: ★★★★★</p>
                 <span class="badge">Assistido </span><button>editar</button><button>remover</button>
