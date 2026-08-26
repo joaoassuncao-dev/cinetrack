@@ -23,13 +23,6 @@ body {
     background-color: #14181C
 }
 
-header {
-    background-color: transparent;
-    color: white;
-    padding: 15px;
-    display: block;
-}
-
 img {
     max-width: 100%;
     width: 100%;
@@ -40,33 +33,84 @@ img {
 button {
     cursor: pointer;
     font: inherit;
+    border: 1px solid #6b0504;
+    color: #6b0504;
+    padding: 12px
 }
 
-input {
-    width: 250px;
-    height: 2em;
-}
-
-.botaoAdicionar {
-    height: 2em;
-    width: 120px;
-    color: white;
-    padding: 1px;
-    margin: 15px;
-    border-radius: 5px;
-    background-color: #6b0504;
-}
 
 footer {
     margin: 20px;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    background-color: transparent;
+    color: white;
+}
+
+.header h1 {
+    flex: 0 0 auto;
+}
+
+.header input {
+    height: 3em;
+    flex: 1 1 240px;
+}
+
+.header button {
+    height: 3em;
+    color: white;
+    border: 1px solid #6b0504;
+    background-color: #6b0504;
+    flex: 0 0 auto;
+    padding: 7px;
+}
+
+
+nav { 
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 24px;
+}
+
+nav button {
+    color: #6b0504;
+    border-radius: 999px;
+    padding: 6px 14px;
+    border: 1px solid #6b0504
+}
+
+nav button.ativo {
+    background-color: #6b0504;
+    color: white;
+}
+
+#lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 24px;
+}
+
 .card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     color: #14181C;
-    margin: 15px;
-    width: 20%; 
+    width: 200px; 
     padding: 15px;
     border-radius: 20px;
     background-color: #CED3DC;
     box-shadow: 0 1px 10px #0002;
+}
+
+.card .acoes {
+    margin-top: auto;
+    display: flex; gap: 8px
 }
