@@ -1,0 +1,249 @@
+/*colors:  
+background: #14181C
+dark garnet: 6b0504
+sunflower gold: e6af2e
+A31621
+*/
+
+:root {
+    --cor-primaria: #6b0504;
+    --raio: 8px;
+    --espaco: 16px;
+    --cor-fundo: #14181C;
+    --cor-badge-assistido: rgba(124, 247, 124, 1);
+    --cor-badge-assistindo: rgba(255, 255, 0, 1);
+    --cor-badge-quero: rgba(240, 0, 0, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    padding: 15px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+    color: white;
+    background-color: var(--cor-fundo)
+}
+
+@media(prefers-color-scheme: light) {
+    :root {
+        --cor-fundo: white;
+    }
+}
+
+button {
+    cursor: pointer;
+    font: inherit;
+    border: 1px solid var(--cor-primaria);
+    color: #6b0504;
+    padding: 12px;
+    transition: 150ms;
+}
+
+
+footer {
+    margin: 20px;
+}
+
+h1 { 
+    font-size: clamp(
+        1.2rem,
+        1rem + 2.5vw,
+        2.5rem
+    );
+}
+
+@media (min-width: 1024px) {
+    #lista {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    h1 {
+        font-size: clamp(
+        1.2rem,
+        1rem + 2.5vw,
+        2.5rem
+    );
+    }
+
+    .header .btnAdicionarDesktop {
+        display: block;
+    }
+
+    .header .btnAdicionarMobile {
+        display: none;
+    }
+
+}
+
+.header {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    background-color: transparent;
+    color: white;
+}
+
+.header h1 {
+    flex: 0 0 auto;
+}
+
+.header input {
+    padding: 6px 14px;
+    flex: 1 1 240px;
+}
+
+.header button {
+    color: white;
+    border: 1px solid var(--cor-primaria);
+    background-color: var(--cor-primaria);
+    flex: 0 0 auto;
+    padding: 6px 14px;    
+}
+
+.btnAdicionarDesktop {
+    display: none;
+}
+
+nav { 
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 24px;
+}
+
+nav button {
+    color: var(--cor-primaria);
+    border-radius: 999px;
+    padding: 6px 14px;
+    border: 1px solid var(--cor-primaria)
+}
+
+nav button.ativo {
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+button:hover {
+    transform:scale(110%);
+}
+
+button:focus-visible {
+    outline: 3px solid #6b0504;
+    outline-offset: 2px;
+}
+
+#lista {
+    display: grid;
+    grid-template-columns: 
+        repeat(auto-fill, minmax(200px, 1fr));
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 24px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #14181C;
+    padding: var(--espaco);
+    border-radius: var(--raio);
+    border-top: 4px solid var(--cor-primaria);
+    background-color: #CED3DC;
+    box-shadow: 0 1px 10px #0002;
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+.card .acoes {
+    margin-top: auto;
+    display: flex; gap: 8px
+}
+
+.card .badge {
+    border-radius: 999px;
+    width:fit-content;
+    padding: 0px 8px;
+}
+
+.badge[assistido] {
+    background: var(--cor-badge-assistido);
+}
+
+.badge[quero-assistir] {
+    background: var(--cor-badge-quero);
+}
+
+.badge[assistindo] {
+    background: var(--cor-badge-assistindo);
+}
+
+#modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+#modal[hidden] {
+    display: none;
+}
+
+.modal-conteudo {
+    background: #14181C;
+    padding: 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow: auto;
+    animation: aparecer 200ms ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.btnCancelar {
+    background-color: #14181C;
+    color: white;
+    margin: 16px;
+}
+
+.btnSalvar {
+    background-color: #6b0504;
+    color: white
+}
+
+.modal-conteudo input, textarea, select {
+    background-color: #2c323867;
+    border: 1px solid #14181C;
+    color: white;
+}
