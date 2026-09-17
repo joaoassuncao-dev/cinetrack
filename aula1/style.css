@@ -163,6 +163,7 @@ button:focus-visible {
     border-top: 4px solid var(--cor-primaria);
     background-color: #CED3DC;
     box-shadow: 0 1px 10px #0002;
+    transition: 200ms;
 }
 
 .card img {
@@ -180,6 +181,10 @@ button:focus-visible {
     border-radius: 999px;
     width:fit-content;
     padding: 0px 8px;
+}
+
+.card:hover {
+    transform:translateY(-20px)
 }
 
 .badge[assistido] {
