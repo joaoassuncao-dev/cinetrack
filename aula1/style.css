@@ -61,29 +61,6 @@ h1 {
     );
 }
 
-@media (min-width: 1024px) {
-    #lista {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    h1 {
-        font-size: clamp(
-        1.2rem,
-        1rem + 2.5vw,
-        2.5rem
-    );
-    }
-
-    .header .btnAdicionarDesktop {
-        display: block;
-    }
-
-    .header .btnAdicionarMobile {
-        display: none;
-    }
-
-}
-
 .header {
     display: flex;
     padding: 12px;
@@ -112,8 +89,27 @@ h1 {
     padding: 6px 14px;    
 }
 
-.btnAdicionarDesktop {
+.btnAdicionar .texto {
     display: none;
+}
+
+@media (min-width: 1024px) {
+    #lista {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    h1 {
+        font-size: clamp(
+        1.2rem,
+        1rem + 2.5vw,
+        2.5rem
+    );
+    }
+
+    .header button .texto {
+        display: inline;
+    }
+
 }
 
 nav { 
@@ -187,11 +183,33 @@ button:focus-visible {
     transform:translateY(-20px)
 }
 
+.card-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.card-collapse-content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card.expandido .card-collapse {
+    grid-template-rows: 1fr;
+}
+
+.card.expandido .card-collapse-content {
+    padding-top: 12px;
+    border-top: 1px solid;
+}
+
 .badge[assistido] {
     background: var(--cor-badge-assistido);
 }
 
-.badge[quero-assistir] {
+.badge[quero] {
     background: var(--cor-badge-quero);
 }
 
