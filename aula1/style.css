@@ -10,9 +10,9 @@ A31621
     --raio: 8px;
     --espaco: 16px;
     --cor-fundo: #14181C;
-    --cor-badge-assistido: rgba(124, 247, 124, 1);
-    --cor-badge-assistindo: rgba(255, 255, 0, 1);
-    --cor-badge-quero: rgba(240, 0, 0, 1);
+    --cor-badge-assistido: rgba(163, 235, 163, 0.4);
+    --cor-badge-assistindo: rgba(255, 255, 63, 0.46);
+    --cor-badge-quero: rgba(240, 163, 163, .4);
 }
 
 * {
@@ -206,14 +206,20 @@ button:focus-visible {
 }
 
 .badge[assistido] {
+    font-weight: 500;
+    color: rgba(63, 150, 63, 1);
     background: var(--cor-badge-assistido);
 }
 
 .badge[quero] {
+    font-weight: 500;
+    color: rgba(140, 63, 63, 1);
     background: var(--cor-badge-quero);
 }
 
 .badge[assistindo] {
+    font-weight: 500;
+    color: rgba(155, 155, 1, 1);
     background: var(--cor-badge-assistindo);
 }
 

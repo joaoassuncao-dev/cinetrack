@@ -1,5 +1,7 @@
 import filmesInicias from './dados-exemplos.json' with { type: 'json'}
 
+let filmes = [...filmesInicias]
+
 // Declaração de constantes
 const TOTAL = 6
 const ASSISTIDOS = 3
@@ -23,23 +25,47 @@ const form = document.querySelector("#form-filme")
 const abrir = () => modal.hidden = false;
 const fechar = () => modal.hidden = true;
 
+const nav = document.querySelector("nav")
+
+// Definicao de listeners 
 document.querySelector("header button")
     .addEventListener("click", (event) => {
         editandoId = null;
         form.reset();
         abrir();
-    })
+});
 
 document.addEventListener("keydown", (e) => {
     if (e.key == "Escape" && !modal.hidden) {
         fechar()
     }
-})
+});
 
 document.querySelector(".btnCancelar")
     .addEventListener("click", () => {
         fechar()
-    })
+});
+
+nav.addEventListener("click", (e) => {
+    const botao = e.target.closest("button");
+    if (!botao) return;
+    nav.querySelector(".ativo")
+        .classList.remove("ativo")
+    botao.classList.add("ativo")
+    const status = botao.dataset.status;
+    renderCards(filmes.filter((f) => 
+        status === "todos" || f.status === status))
+});
+
+lista.addEventListener("click", (e) => {
+    const botao = e.target.closest(".btn-remover")
+    if (!botao) return;
+    if (!confirm("Remover este filme?")) return;
+    const card = botao.closest(".card")
+    const id = Number(card.dataset.id);
+    filmes = filmes.filter((f) => f.id !== id)
+    renderCards(filmes);
+});
 
 btnTodos.textContent += ` (${TOTAL})`
 btnAssistido.textContent += ` (${ASSISTIDOS})`
@@ -73,7 +99,7 @@ function renderCards(filmes) {
             <p class="nota">${estrelas(f.nota)}</p>
             <span class="badge" ${f.status}>${rotuloStatus(f.status)}</span>
             <div class="acoes">
-                <button>editar</button><button>remover</button>
+                <button class="btn-editar">editar</button><button class="btn-remover">remover</button>
             </div>
         </article>
       `).join("");
@@ -81,7 +107,7 @@ function renderCards(filmes) {
 
 }
 
-renderCards(filmesInicias)
+renderCards(filmes)
 
 function expandCards(card) {
     const expandido = card.classList.toggle('expandido');
