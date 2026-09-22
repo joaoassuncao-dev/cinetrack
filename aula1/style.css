@@ -160,6 +160,14 @@ button:focus-visible {
     background-color: #CED3DC;
     box-shadow: 0 1px 10px #0002;
     transition: 200ms;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+
+.card h2 {
+    color: var(--cor-primaria);
+    font-size: 15px;
 }
 
 .card img {
@@ -245,7 +253,34 @@ button:focus-visible {
     max-width: 420px;
     max-height: 90vh;
     overflow: auto;
-    animation: aparecer 200ms ease;
+    animation: aparecer 300ms ease;
+}
+
+.modal-conteudo input, textarea, select {
+    background-color: #2c323867;
+    border: 1px solid #14181C;
+    border-radius: 7px;
+    color: white;
+    padding: 7px;
+}
+
+.modal-conteudo h2 {
+    margin-bottom: 12px;
+}
+
+select option {
+    background-color:#14181C;
+    border: 0px solid;
+}
+
+select, select::picker(select) {
+    appearance: base-select;
+    color: white;
+}
+
+#form-filme {
+    display: flex;
+    flex-direction: column;
 }
 
 @keyframes aparecer {
@@ -269,10 +304,4 @@ button:focus-visible {
 .btnSalvar {
     background-color: #6b0504;
     color: white
-}
-
-.modal-conteudo input, textarea, select {
-    background-color: #2c323867;
-    border: 1px solid #14181C;
-    color: white;
 }

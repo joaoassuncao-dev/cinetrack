@@ -29,7 +29,7 @@ const nav = document.querySelector("nav")
 
 // Definicao de listeners 
 document.querySelector("header button")
-    .addEventListener("click", (event) => {
+    .addEventListener("click", () => {
         editandoId = null;
         form.reset();
         abrir();
@@ -40,6 +40,19 @@ document.addEventListener("keydown", (e) => {
         fechar()
     }
 });
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dados = 
+        Object.fromEntries(new FormData(form));
+    dados.ano = Number(dados.ano);
+    dados.nota = Number(dados.nota)
+    dados.status = (dados.status).toLowerCase()
+    const {valido, erros} = validarFilme(dados);
+    if (!valido) { 
+        alert(erros.join("\n")); return; }
+    criarCard(dados)
+})
 
 document.querySelector(".btnCancelar")
     .addEventListener("click", () => {
@@ -53,7 +66,7 @@ nav.addEventListener("click", (e) => {
         .classList.remove("ativo")
     botao.classList.add("ativo")
     const status = botao.dataset.status;
-    renderCards(filmes.filter((f) => 
+    renderizarCards(filmes.filter((f) => 
         status === "todos" || f.status === status))
 });
 
@@ -64,7 +77,7 @@ lista.addEventListener("click", (e) => {
     const card = botao.closest(".card")
     const id = Number(card.dataset.id);
     filmes = filmes.filter((f) => f.id !== id)
-    renderCards(filmes);
+    renderizarCards(filmes);
 });
 
 btnTodos.textContent += ` (${TOTAL})`
@@ -73,6 +86,8 @@ btnAssistindo.textContent += ` (${ASSISTINDO})`
 btnQuero.textContent += ` (${QUERO})`
 rodape.textContent += ` · ${TOTAL} filmes cadastrados`
 
+
+// funcoes auxiliares
 function rotuloStatus(status) {
     if(status === "assistido") {return "Assistido"};
     if(status === "assistindo") {return "Assistindo"};
@@ -88,26 +103,58 @@ const estrelas = (nota) => {
     return resultaddo;
 }
 
+function validarFilme(filme) {
+    const erros = []
+    if (!filme.titulo)
+        erros.push("Título obrigatório")
+    if (filme.ano < 1888 || filme.ano > 2030)
+        erros.push("Ano inválido")
+    return { valido: erros.length === 0, erros}
+}
+
+function criarCard(f) {
+
+    const proximoId = (id) => {
+        if (id == null) {
+            return Math.max(...filmes.map(i => i.id)) + 1
+        }
+        return id
+    }
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.id = proximoId(f.id);
+    const titulo = document.createElement("h2")
+    titulo.textContent = f.titulo;
+    card.append(titulo)
+    return card;
+}
+
 // renderizador dos cards na tela, cresce conforme o .json cresce
-function renderCards(filmes) {
-    const cards = filmes.map((f) => `
-       <article class="card" data-id="${f.id}" tabindex="0" role="button" aria-expanded="false">
-          <!-- Conteúdo sempre visível -->
-            <img src="${f.poster}" alt="Poster de ${f.titulo}" width="90">
-            <h2>${f.titulo}</h2>
-            <p>${f.ano}</p>
-            <p class="nota">${estrelas(f.nota)}</p>
-            <span class="badge" ${f.status}>${rotuloStatus(f.status)}</span>
-            <div class="acoes">
-                <button class="btn-editar">editar</button><button class="btn-remover">remover</button>
-            </div>
-        </article>
-      `).join("");
-    lista.innerHTML = cards;
+function renderizarCards(filmes) {
+
+    const frag = document.createDocumentFragment();
+    filmes.forEach((f) => {
+        frag.appendChild(criarCard(f))
+    });
+    lista.replaceChildren(frag);
+    // const cards = filmes.map((f) => `
+    //    <article class="card" data-id="${f.id}" tabindex="0" role="button" aria-expanded="false">
+    //       <!-- Conteúdo sempre visível -->
+    //         <img src="${f.poster}" alt="Poster de ${f.titulo}" width="90">
+    //         <h2>${f.titulo}</h2>
+    //         <p>${f.ano} - ${f.genero}</p>
+    //         <p class="nota">${estrelas(f.nota)}</p>
+    //         <span class="badge" ${f.status}>${rotuloStatus(f.status)}</span>
+    //         <div class="acoes">
+    //             <button class="btn-editar">editar</button><button class="btn-remover">remover</button>
+    //         </div>
+    //     </article>
+    //   `).join("");
+    // lista.innerHTML = cards;
 
 }
 
-renderCards(filmes)
+renderizarCards(filmes)
 
 function expandCards(card) {
     const expandido = card.classList.toggle('expandido');
