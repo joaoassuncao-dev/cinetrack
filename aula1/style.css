@@ -135,6 +135,10 @@ button:hover {
     transform:scale(110%);
 }
 
+button:active {
+    transform: scale(0.85);
+}
+
 button:focus-visible {
     outline: 3px solid #6b0504;
     outline-offset: 2px;
@@ -281,6 +285,34 @@ select, select::picker(select) {
 #form-filme {
     display: flex;
     flex-direction: column;
+}
+
+.nota-estrela {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.estrela {
+    font-size: 32px;
+    color: #4a5568;
+    transition: transform 0.1s;
+}
+
+.estrela.cheia {
+    color: #e6af2e;
+}
+
+.estrela.meia {
+    background: linear-gradient(90deg, #e6af2e 50%, transparent 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.estrela:active {
+    transform: scale(0.85)
 }
 
 @keyframes aparecer {

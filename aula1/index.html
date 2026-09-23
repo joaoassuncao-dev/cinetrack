@@ -40,8 +40,16 @@
                     <input type="number" id="ano" name ="ano" min="1900" max="2026" required> <br />
                     <label for="genero">Gênero <br></label>
                     <input type="text" id="genero" name="genero" required> <br />
-                    <label for="nota">Nota (1 a 5)<br /></label>
-                    <input type="number" id="nota" name="nota" min="0" max="5"> <br />
+                    <!-- <label for="nota">Nota (1 a 5)<br /></label> -->
+                    <label>Nota: <strong id="valor-nota-texto">0</strong><br/></label>
+                    <div class="nota-estrela" id="container-nota">
+                        <span class="estrela" data-valor="1">★</span>
+                        <span class="estrela" data-valor="2">★</span>
+                        <span class="estrela" data-valor="3">★</span>
+                        <span class="estrela" data-valor="4">★</span>
+                        <span class="estrela" data-valor="5">★</span>
+                    </div>
+                    <input type="hidden" id="nota" name="nota" value="0" required> <br/> 
                     <label for="status">Status: <br /></label>
                     <select id="status" name="status" required>
                         <option>Assistido</option>
