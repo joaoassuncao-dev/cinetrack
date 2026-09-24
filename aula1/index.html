@@ -11,43 +11,57 @@
     <!-- Header Nav com nome do site e botões de busca e status dos filmes -->
     <header class="header">
         <h1><strong>CineTrack</strong></h1>
-        <input type="text" aria-label="adicionar" placeholder="Buscar Filme..."><button class="btnAdicionarDesktop">+ Adicionar</button><button class="btnAdicionarMobile">+</button>
+        <input type="text" aria-label="adicionar" placeholder="Buscar Filme...">
+        <button class="btnAdicionar" aria-label="Adicionar Filme">
+            <span class="icone">+</span>
+            <span class="texto">Adicionar</span>
+        </button>
     </header>
     <br>
     <!-- Sessão principal onde ficam os filmes com capas e informações sobre os filmes -->
     <main>
         <nav aria-label="Filtros de status">
-            <button class="ativo">Todos</button>
-            <button>Assistido</button>
-            <button>Assistindo</button>
-            <button>Quero assistir</button>
+            <button data-status="todos" class="ativo">Todos</button>
+            <button data-status="assistido">Assistido</button>
+            <button data-status="assistindo">Assistindo</button>
+            <button data-status="quero">Quero assistir</button>
         </nav>
-        <section id="lista"></section>
+        <section id="lista">
+        </section>
     </main>
     <br>
     <div id="modal" hidden>
             <div class="modal-conteudo">
                 <h2>Adicionar Filme</h2>
                  <form id="form-filme">
-                    <label for="titulo">Titulo: <br/></label>
-                    <input type="text" id="titulo" required> <br />
+                    <label for="titulo">Titulo:<br/></label>
+                    <input type="text" id="titulo" name="titulo" required> <br />
                     <label for="ano">Ano <br/></label>
-                    <input type="number" id="ano" required min="1900" max="2026"> <br />
+                    <input type="number" id="ano" name ="ano" min="1900" max="2026" required> <br />
                     <label for="genero">Gênero <br></label>
-                    <input type="text" id="genero" required> <br />
-                    <label for="poster">Pôster: <br /></label>
-                    <input type="url" id="poster"> <br />
+                    <input type="text" id="genero" name="genero" required> <br />
+                    <!-- <label for="nota">Nota (1 a 5)<br /></label> -->
+                    <label>Nota: <strong id="valor-nota-texto">0</strong><br/></label>
+                    <div class="nota-estrela" id="container-nota">
+                        <span class="estrela" data-valor="1">★</span>
+                        <span class="estrela" data-valor="2">★</span>
+                        <span class="estrela" data-valor="3">★</span>
+                        <span class="estrela" data-valor="4">★</span>
+                        <span class="estrela" data-valor="5">★</span>
+                    </div>
+                    <input type="hidden" id="nota" name="nota" value="0" required> <br/> 
                     <label for="status">Status: <br /></label>
-                    <select id="status"required>
+                    <select id="status" name="status" required>
                         <option>Assistido</option>
                         <option>Assistindo</option>
                         <option>Quero Assistir</option>
                     </select> <br />
-                    <label for="nota">Nota (1 a 5)<br /></label>
-                    <input type="number" id="nota" min="0" max="5"> <br />
                     <label for="comentario">Comentário: <br /></label>
-                    <textarea id="comentario" rows="5" cols="50"></textarea> <br />
-                    <button type="submit" class="btnCancelar">Cancelar</button><button type="submit" class="btnSalvar">Salvar</button>
+                    <textarea id="comentario" name="comentario" rows="5" cols="50"></textarea> <br />
+                    <div>
+                        <button class="btnCancelar">Cancelar</button>
+                        <button type="submit" class="btnSalvar">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
