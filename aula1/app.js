@@ -34,7 +34,48 @@ const fechar = () => modal.hidden = true;
 
 const nav = document.querySelector("nav")
 
+// Declaracao das variaveis para trabalhar nas logicas das notas
+const containerEstrela = document.querySelector('#container-nota')
+const inputNota = document.querySelector('#nota')
+const txtNota = document.querySelector('#valor-nota-texto')
+const elemEstrela = document.querySelectorAll('.estrela')
+
+let notaFix = 0;
+
 // Definicao de listeners 
+
+// Listener para preencher estrela
+containerEstrela.addEventListener('mousemove', (e) => {
+    const estrela = e.target.closest('.estrela')
+    if (!estrela) return;
+
+    const rect = estrela.getBoundingClientRect();
+    const isMeia = (e.clientX - rect.left) < (rect.width / 2)
+
+    const valorBase = Number(estrela.dataset.valor);
+    const valorHover = isMeia ? valorBase - 0.5 : valorBase;
+
+    setEstrela(valorHover);
+})
+
+containerEstrela.addEventListener('mouseleave', () => {
+    setEstrela(notaFix)
+})
+
+containerEstrela.addEventListener('click', (e) => {
+    const estrela = e.target.closest('.estrela')
+    if (!estrela) return;
+
+    const rect = estrela.getBoundingClientRect();
+    const isMeia = (e.clientX - rect.left) < (rect.width / 2)
+    const valorBase = Number(estrela.dataset.valor);
+    
+    notaFix = isMeia ? valorBase - 0.5 : valorBase;
+
+    inputNota.value = notaFix 
+    txtNota.textContent = notaFix;
+
+})
 
 // Listener para abrir modal
 document.querySelector("header button")
@@ -90,7 +131,7 @@ document.querySelector(".btnCancelar")
         fechar()
 });
 
-// Listener para configurar a funcao de filtro dos botoes de status
+// Listener para configurar a funcao de FILTRO dos botoes de status
 nav.addEventListener("click", (e) => {
     const botao = e.target.closest("button");
     if (!botao) return;
@@ -102,7 +143,7 @@ nav.addEventListener("click", (e) => {
         status === "todos" || f.status === status))
 });
 
-// Listener para configurar o botao de remover dos cards  
+// Listener para configurar o botao de REMOVER dos cards  
 lista.addEventListener("click", (e) => {
     const botao = e.target.closest(".btn-remover")
     if (!botao) return;
@@ -113,7 +154,7 @@ lista.addEventListener("click", (e) => {
     renderizarCards(filmes);
 });
 
-// Listener para configurar o botao de editar dos cards
+// Listener para configurar o botao de EDITAR dos cards
 lista.addEventListener("click", (e) => {
     const botao = e.target.closest(".btn-editar")
     if (!botao) return;
@@ -133,6 +174,19 @@ lista.addEventListener("click", (e) => {
 
 // funcoes auxiliares
 
+function setEstrela(nota) {
+    elemEstrela.forEach((estrela) => {
+        const vlrEstrela = Number(estrela.dataset.valor)
+        estrela.classList.remove('cheia', 'meia')
+
+        if (nota >= vlrEstrela) {
+            estrela.classList.add('cheia')
+        } else if (nota === vlrEstrela - 0.5) {
+            estrela.classList.add('meia')
+        }
+    }) 
+}
+
 // Funcao para adicionar o status corretamente nos cards
 function rotuloStatus(status) {
     if(status === "assistido") {return "Assistido"};
@@ -142,13 +196,7 @@ function rotuloStatus(status) {
 }
 
 // Funcao para adicionar as estrelas corretamente nos cards
-const estrelas = (nota) => {
-    let resultaddo = '';
-    for (let i=1; i <= 5; i++) {
-        resultaddo += i <= nota ? '★' : '☆';
-    }
-    return resultaddo;
-}
+
 
 // Funcao para validar se o filme tem as informacoes certas
 function validarFilme(filme) {
@@ -167,7 +215,7 @@ function criarCard(f) {
     const titulo = document.createElement("h2")
     const poster = document.createElement("img")
     const ano = document.createElement("p")
-    const nota = document.createElement("p")
+    const nota = estrelas(f.nota)
     const badge = document.createElement("span")
     const acoes = document.createElement("div")
     const btnEditar = document.createElement("button")
@@ -180,6 +228,34 @@ function criarCard(f) {
     btnEditar.className = "btn-editar";
     btnRemover.className = "btn-remover"    
     
+    function estrelas(vlrNota) {
+
+        const containerNota = document.createElement('div')
+        containerNota.className = 'nota-estrela'
+
+        for (let i=1; i <= 5; i++) {
+
+            const nota = document.createElement('span')
+            nota.textContent = "★"
+            nota.className = 'estrela'
+
+            if (vlrNota >= i) {
+                nota.classList.add('cheia');
+            } else  if (vlrNota === i - 0.5) {
+                nota.classList.add('meia');
+            }
+            else {
+                break
+            }
+            
+            containerNota.append(nota)
+
+        }
+
+        return containerNota;
+        
+    }
+
     titulo.textContent = f.titulo;
     if (!f.poster) {
         poster.src = `https://placehold.co/200x300?text=${f.titulo}`
@@ -190,7 +266,6 @@ function criarCard(f) {
         poster.alt = `Poster de ${f.titulo}`
     }
     ano.textContent = f.ano + " - " +  f.genero;
-    nota.textContent = estrelas(f.nota)
     badge.textContent = rotuloStatus(f.status)
     if (f.status) {
         let s = f.status
@@ -220,6 +295,7 @@ function renderizarCards(filmes) {
     lista.replaceChildren(frag);
 
 }
+
 
 
 // function expandCards(card) {

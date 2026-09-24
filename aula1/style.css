@@ -287,7 +287,7 @@ select, select::picker(select) {
     flex-direction: column;
 }
 
-.nota-estrela {
+#form-filme .nota-estrela {
     display: flex;
     gap: 4px;
     margin-bottom: 12px;
@@ -301,17 +301,23 @@ select, select::picker(select) {
     transition: transform 0.1s;
 }
 
-.estrela.cheia {
+.card .estrela.meia {
+    background: linear-gradient(90deg, #4a5568 50%, transparent 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} 
+
+#form-filme .estrela.cheia {
     color: #e6af2e;
 }
 
-.estrela.meia {
+#form-filme .estrela.meia {
     background: linear-gradient(90deg, #e6af2e 50%, transparent 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.estrela:active {
+#form-filme .estrela:active {
     transform: scale(0.85)
 }
 
