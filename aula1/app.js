@@ -1,6 +1,21 @@
 import filmesInicias from './dados-exemplos.json' with { type: 'json'}
 
-let filmes = [...filmesInicias]
+// chave localStorage
+const CHAVE = "cinetrack:filmes"
+
+let filmes = carregar()
+
+const salvar = () => 
+    localStorage.setItem(CHAVE,
+        JSON.stringify(filmes)
+    )
+
+function carregar() {
+    const txt = localStorage.getItem(CHAVE)
+    return txt
+        ? JSON.parse(txt)
+        : [...filmesInicias]
+}
 
 // Declaração de botões do nav
 const btnTodos = document.querySelector("nav button:nth-child(1)");
@@ -40,9 +55,21 @@ const inputNota = document.querySelector('#nota')
 const txtNota = document.querySelector('#valor-nota-texto')
 const elemEstrela = document.querySelectorAll('.estrela')
 
+// Declarao de variavel de busca
+const busca = document.querySelector('.header input')
+const aoDigitar = (e) => {
+    termoAtual = e.target.value;
+    atualizar();
+}
+
 let notaFix = 0;
 
 // Definicao de listeners 
+
+// Listener de busca no input com debounce ativado
+busca.addEventListener('input',
+    debounce(aoDigitar, 300)
+)
 
 // Listener para preencher estrela
 containerEstrela.addEventListener('mousemove', (e) => {
@@ -99,7 +126,7 @@ form.addEventListener("submit", (e) => {
         Object.fromEntries(new FormData(form));
     dados.ano = Number(dados.ano);
     dados.nota = Number(dados.nota)
-    dados.status = (dados.status).toLowerCase()
+    dados.status = (dados.status)
 
     const {valido, erros} = validarFilme(dados);
     if (!valido) { 
@@ -119,7 +146,7 @@ form.addEventListener("submit", (e) => {
         }]
     }
 
-    renderizarCards(filmes)
+    atualizar()
     
     fechar()
     form.reset()
@@ -129,6 +156,7 @@ form.addEventListener("submit", (e) => {
 document.querySelector(".btnCancelar")
     .addEventListener("click", () => {
         fechar()
+        form.reset()
 });
 
 // Listener para configurar a funcao de FILTRO dos botoes de status
@@ -138,9 +166,9 @@ nav.addEventListener("click", (e) => {
     nav.querySelector(".ativo")
         .classList.remove("ativo")
     botao.classList.add("ativo")
-    const status = botao.dataset.status;
-    renderizarCards(filmes.filter((f) => 
-        status === "todos" || f.status === status))
+    statusAtual = botao.dataset.status
+    salvar()
+    atualizar()
 });
 
 // Listener para configurar o botao de REMOVER dos cards  
@@ -151,7 +179,8 @@ lista.addEventListener("click", (e) => {
     const card = botao.closest(".card")
     const id = Number(card.dataset.id);
     filmes = filmes.filter((f) => f.id !== id)
-    renderizarCards(filmes);
+    salvar()
+    atualizar()
 });
 
 // Listener para configurar o botao de EDITAR dos cards
@@ -196,7 +225,27 @@ function rotuloStatus(status) {
 }
 
 // Funcao para adicionar as estrelas corretamente nos cards
+let termoAtual = ''
+let statusAtual = 'todos'
 
+function aplicarFiltros(lista, opcoes) { 
+    const termo = opcoes.termo.toLowerCase();
+    return lista
+        .filter((f) => 
+            f.titulo.toLowerCase().includes(termo)
+        )
+        .filter((f) => 
+            opcoes.status === "todos" || f.status === opcoes.status
+        )
+}
+
+// Funcao para renderizar os filmes baseado no filtro ativo
+function atualizar() {
+    const visiveis = aplicarFiltros(filmes, {
+        termo: termoAtual, status: statusAtual
+    })
+    renderizarCards(visiveis)
+}
 
 // Funcao para validar se o filme tem as informacoes certas
 function validarFilme(filme) {
@@ -206,6 +255,15 @@ function validarFilme(filme) {
     if (filme.ano < 1888 || filme.ano > 2030)
         erros.push("Ano inválido")
     return { valido: erros.length === 0, erros}
+}
+
+// Funcao de debounce para receber comandos
+function debounce(fn, ms = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer)
+        timer = setTimeout(() => fn(...args), ms)
+    }
 }
 
 // Funcao para criar cards dinamicamente, tanto da importacao do JSON quando do form
@@ -247,13 +305,9 @@ function criarCard(f) {
             else {
                 break
             }
-            
             containerNota.append(nota)
-
         }
-
         return containerNota;
-        
     }
 
     titulo.textContent = f.titulo;
@@ -296,24 +350,4 @@ function renderizarCards(filmes) {
 
 }
 
-
-
-// function expandCards(card) {
-//     const expandido = card.classList.toggle('expandido');
-//     card.setAttribute('aria-expanded', expandido);
-// }
-
-// lista.addEventListener('click', (event) => {
-//     if (event.target.closest('button')) {
-//         return;
-//     }
-    
-//     const card = event.target.closest('.card')
-//     if (card) {
-//         expandCards(card)
-//     }
-    
-// })
-
-renderizarCards(filmes)
-
+atualizar()
