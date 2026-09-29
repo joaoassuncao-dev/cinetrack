@@ -130,7 +130,8 @@ form.addEventListener("submit", (e) => {
 
     const {valido, erros} = validarFilme(dados);
     if (!valido) { 
-        alert(erros.join("\n")); return; }
+        alert(erros.join("\n")); return; 
+    }
 
     const proximoId = (lista) =>
          Math.max(...lista.map(i => i.id)) + 1
