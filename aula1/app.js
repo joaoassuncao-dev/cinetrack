@@ -3,6 +3,11 @@ import filmesInicias from './dados-exemplos.json' with { type: 'json'}
 // chave localStorage
 const CHAVE = "cinetrack:filmes"
 
+let TOTAL 
+let ASSISTIDOS
+let ASSISTINDO
+let QUERO
+
 let filmes = carregar()
 
 const salvar = () => 
@@ -12,33 +17,25 @@ const salvar = () =>
 
 function carregar() {
     const txt = localStorage.getItem(CHAVE)
+
     return txt
         ? JSON.parse(txt)
         : [...filmesInicias]
 }
 
-// Declaração de botões do nav
-const btnTodos = document.querySelector("nav button:nth-child(1)");
-const btnAssistido = document.querySelector("nav button:nth-child(2)")
-const btnAssistindo = document.querySelector("nav button:nth-child(3)")
-const btnQuero= document.querySelector("nav button:nth-child(4)")
+function carregarConstantes() {
 
-// Declaração do rodapé
-const rodape = document.querySelector("footer small");
+    TOTAL = filmes.length
+    ASSISTIDOS = filmes.filter(f => f.status === "assistido").length
+    ASSISTINDO = filmes.filter(f => f.status === "assistindo").length
+    QUERO = filmes.filter(f => f.status === "quero").length
+
+}
+
+let termoAtual = ''
+let statusAtual = 'todos'
+
 const lista = document.querySelector("#lista")
-
-// Declaração de constantes
-const TOTAL = filmes.length
-const ASSISTIDOS = filmes.filter(f => f.status === "assistido").length
-const ASSISTINDO = filmes.filter(f => f.status === "assistindo").length
-const QUERO = filmes.filter(f => f.status === "quero").length
-
-// Adiciona Label de número de filmes com cada status
-btnTodos.textContent += ` (${TOTAL})`
-btnAssistido.textContent += ` (${ASSISTIDOS})`
-btnAssistindo.textContent += ` (${ASSISTINDO})`
-btnQuero.textContent += ` (${QUERO})`
-rodape.textContent += ` · ${TOTAL} filmes cadastrados`
 
 // Declaracao de variaveis do modal (form-filme)
 let editandoId = null
@@ -63,6 +60,23 @@ const aoDigitar = (e) => {
 }
 
 let notaFix = 0;
+
+atualizar()
+
+// Declaração de botões do nav
+const btnTodos = document.querySelector("nav button:nth-child(1)");
+const btnAssistido = document.querySelector("nav button:nth-child(2)")
+const btnAssistindo = document.querySelector("nav button:nth-child(3)")
+const btnQuero= document.querySelector("nav button:nth-child(4)")
+const rodape = document.querySelector("footer small");
+
+// Adiciona Label de número de filmes com cada status
+btnTodos.textContent += ` (${TOTAL})`
+btnAssistido.textContent += ` (${ASSISTIDOS})`
+btnAssistindo.textContent += ` (${ASSISTINDO})`
+btnQuero.textContent += ` (${QUERO})`
+rodape.textContent += ` · ${TOTAL} filmes cadastrados`
+
 
 // Definicao de listeners 
 
@@ -119,7 +133,7 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// Listener para salvar dados no form, tanto criar quanto editar
+// Listener para salvar dados no form, tanto CRIAR quanto EDITAR
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const dados = 
@@ -146,9 +160,9 @@ form.addEventListener("submit", (e) => {
         }]
     }
 
-    atualizar()
-    
     fechar()
+    salvar()
+    atualizar()
     form.reset()
 })
 
@@ -225,8 +239,6 @@ function rotuloStatus(status) {
 }
 
 // Funcao para adicionar as estrelas corretamente nos cards
-let termoAtual = ''
-let statusAtual = 'todos'
 
 function aplicarFiltros(lista, opcoes) { 
     const termo = opcoes.termo.toLowerCase();
@@ -244,7 +256,9 @@ function atualizar() {
     const visiveis = aplicarFiltros(filmes, {
         termo: termoAtual, status: statusAtual
     })
+
     renderizarCards(visiveis)
+    carregarConstantes()
 }
 
 // Funcao para validar se o filme tem as informacoes certas
@@ -350,4 +364,3 @@ function renderizarCards(filmes) {
 
 }
 
-atualizar()
