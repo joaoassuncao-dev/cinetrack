@@ -218,19 +218,19 @@ button:focus-visible {
     border-top: 1px solid;
 }
 
-.badge[assistido] {
+.badge[data-status=assistido] {
     font-weight: 500;
     color: rgba(63, 150, 63, 1);
     background: var(--cor-badge-assistido);
 }
 
-.badge[quero] {
+.badge[data-status=quero] {
     font-weight: 500;
     color: rgba(140, 63, 63, 1);
     background: var(--cor-badge-quero);
 }
 
-.badge[assistindo] {
+.badge[data-status=assistindo] {
     font-weight: 500;
     color: rgba(155, 155, 1, 1);
     background: var(--cor-badge-assistindo);
