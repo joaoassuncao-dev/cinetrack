@@ -166,6 +166,7 @@ button:focus-visible {
     transition: 200ms;
     font-size: 14px;
     font-weight: lighter;
+    margin-bottom: 12px;
 }
 
 
@@ -305,7 +306,11 @@ select, select::picker(select) {
     background: linear-gradient(90deg, #4a5568 50%, transparent 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-} 
+}
+
+.card .estrela-vazia {
+    background: transparent;
+}
 
 #form-filme .estrela.cheia {
     color: #e6af2e;

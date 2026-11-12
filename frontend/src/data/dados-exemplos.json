@@ -7,7 +7,7 @@
         "poster": "https://placehold.co/200x300?text=A+Origem",
         "nota": 5,
         "status": "assistido",
-        "comentariso": "Revejo sempre."
+        "comentario": "Revejo sempre."
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "ano": 2019,
         "genero": "Suspense",
         "poster": "https://placehold.co/200x300?text=Parasita",
-        "nota": 4,
+        "nota": 4.5,
         "status": "assistido",
         "comentario": ""
     },
@@ -25,7 +25,7 @@
         "ano": 2000,
         "genero": "Comédia",
         "poster": "https://placehold.co/200x300?text=Compadecida",
-        "nota": 5,
+        "nota": 3.5,
         "status": "assistido",
         "comentario": "Classico nacional."
     },

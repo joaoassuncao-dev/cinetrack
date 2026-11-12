@@ -1,17 +1,15 @@
 import { useState } from 'react'
-import './App.css'
 import Titulo from './components/titulo'
 import {filmes} from './data/filmes'
+import ListaFilmes from './components/listafilmes'
 
 export default function App() {
-
-  console.log(filmes)
 
   return (
     <>
       <Titulo/>
+      <ListaFilmes filmes={filmes}/>
     </>
   )
 
 }
-
