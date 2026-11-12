@@ -1,6 +1,6 @@
 import Card from "./card"
 
-export default function ListaFilmes( { filmes } : {filmes : any}) {
+export default function ListaFilmes( { filmes, aoEditar, aoRemover }) {
 
     if (filmes.length === 0)  {
         return <p>Nenhum filme encontrado.</p>
@@ -9,7 +9,12 @@ export default function ListaFilmes( { filmes } : {filmes : any}) {
     return (
         <section id="lista">
             {filmes.map((f:any) => (
-                <Card key={f.id} filme={f} />
+                <Card 
+                    key={f.id} 
+                    filme={f} 
+                    aoEditar={aoEditar}
+                    aoRemover={aoRemover}    
+                />
             ))}
         </section>
     )

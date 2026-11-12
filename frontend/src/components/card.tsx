@@ -1,4 +1,4 @@
-export default function Card({ filme } : {filme:any}) {
+export default function Card({ filme, aoEditar, aoRemover }) {
     
     // Funcao para colocar a badge de maneira adequada
     function setBadge(status:string) {
@@ -24,13 +24,17 @@ export default function Card({ filme } : {filme:any}) {
     
     function BtnEditar() {
         return (
-            <button className="btn-editar">editar</button>
+            <button className="btn-editar" onClick={() => aoEditar(filme)}>
+                editar
+            </button>
         )
     }
 
     function BtnRemover() {
         return (
-            <button className="btn-remover">remover</button>
+            <button className="btn-remover" onClick={() => aoRemover(filme.id)}>
+                remover
+            </button>
         )
     }
 

@@ -1,6 +1,6 @@
 import Titulo from "./titulo"
 
-export default function Header({busca, aoBuscar}) {
+export default function Header({busca, aoBuscar, aoAdicionar}) {
 
     return (
         <header className="header">
@@ -12,7 +12,8 @@ export default function Header({busca, aoBuscar}) {
                     onChange={(e) => 
                         aoBuscar(e.target.value)
                     }/>
-            <button className="btnAdicionar" aria-label="Adicionar Filme">
+            <button className="btnAdicionar" aria-label="Adicionar Filme"
+                onClick={aoAdicionar}>
                 <span className="icone">+</span>
                 <span className="texto">Adicionar</span>
             </button>
