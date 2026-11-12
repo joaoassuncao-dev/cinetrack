@@ -5,12 +5,31 @@ import Header from './components/header'
 import Filtros from './components/filtros'
 
 export default function App() {
+  
+  const [status, setStatus] = useState("todos");
+  const [busca, setBusca] = useState("");
+    
 
+  const visiveis = filmes
+    .filter((filme) =>
+        status === "todos" ||
+        filme.status === status)
+    .filter((filme) => 
+      filme.titulo
+        .toLowerCase()
+        .includes(busca.toLowerCase()))
+  
   return (
     <>
-      <Header />
-      <Filtros />
-      <ListaFilmes filmes={filmes}/>
+      <Header 
+        busca = {busca}
+        aoBuscar = {setBusca}
+      />
+      <Filtros 
+        ativo={status}
+        aoMudar={setStatus}
+      />
+      <ListaFilmes filmes={visiveis}/>
     </>
   )
 
