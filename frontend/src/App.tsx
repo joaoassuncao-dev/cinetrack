@@ -30,14 +30,26 @@ export default function App() {
     setFilmes((anteriores) => [
       ...anteriores,
       {
-        ...novoFilme,
         id: gerarId(anteriores),
+        ...novoFilme
+        
       },
     ])
 
   }
 
+  function editar(id, dados) {
+    setFilmes((anteriores) => 
+      anteriores.map((f) => 
+        f.id === id
+          ? {...f, ...dados, id}
+          : f
+      )
+    )
+  }
+
   function salvar(dados) {
+
     if (editando.id) {
       editar(editando.id, dados);
     } else {
@@ -47,9 +59,10 @@ export default function App() {
     setEditando(null)
   }
 
-  function remover(dados) {
+  function remover(id) {
     const removerFilme = filmes 
-      .filter((f) => f.id !== dados.id)
+      .filter((f) => f.id !== id);
+    setFilmes(removerFilme)
     atualizar()
   }
 

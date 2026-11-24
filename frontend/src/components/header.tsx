@@ -2,6 +2,18 @@ import Titulo from "./titulo"
 
 export default function Header({busca, aoBuscar, aoAdicionar}) {
 
+    function BtnAdicionar() {
+    
+        return (
+            <button className="btnAdicionar" aria-label="Adicionar Filme"
+                onClick={aoAdicionar}>
+                <span className="icone">+</span>
+                <span className="texto"> Adicionar</span>
+            </button>
+        )
+
+    } 
+    
     return (
         <header className="header">
             <Titulo />
@@ -12,11 +24,7 @@ export default function Header({busca, aoBuscar, aoAdicionar}) {
                     onChange={(e) => 
                         aoBuscar(e.target.value)
                     }/>
-            <button className="btnAdicionar" aria-label="Adicionar Filme"
-                onClick={aoAdicionar}>
-                <span className="icone">+</span>
-                <span className="texto">Adicionar</span>
-            </button>
+                <BtnAdicionar/>
         </header>
     )
 
