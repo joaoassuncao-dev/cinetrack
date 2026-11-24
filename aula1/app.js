@@ -118,6 +118,19 @@ containerEstrela.addEventListener('click', (e) => {
 
 })
 
+function setEstrela(nota) {
+    elemEstrela.forEach((estrela) => {
+        const vlrEstrela = Number(estrela.dataset.valor)
+        estrela.classList.remove('cheia', 'meia')
+
+        if (nota >= vlrEstrela) {
+            estrela.classList.add('cheia')
+        } else if (nota === vlrEstrela - 0.5) {
+            estrela.classList.add('meia')
+        }
+    }) 
+}
+
 // Listener para abrir modal
 document.querySelector("header button")
     .addEventListener("click", () => {
@@ -189,10 +202,12 @@ nav.addEventListener("click", (e) => {
 lista.addEventListener("click", (e) => {
     const botao = e.target.closest(".btn-remover")
     if (!botao) return;
-    if (!confirm("Remover este filme?")) return;
     const card = botao.closest(".card")
     const id = Number(card.dataset.id);
+    console.log(`Filme a ser removido: ${id}`)
+    if (!confirm("Remover este filme?")) return;
     filmes = filmes.filter((f) => f.id !== id)
+    console.log(filmes)
     salvar()
     atualizar()
 });
@@ -216,19 +231,6 @@ lista.addEventListener("click", (e) => {
 })
 
 // funcoes auxiliares
-
-function setEstrela(nota) {
-    elemEstrela.forEach((estrela) => {
-        const vlrEstrela = Number(estrela.dataset.valor)
-        estrela.classList.remove('cheia', 'meia')
-
-        if (nota >= vlrEstrela) {
-            estrela.classList.add('cheia')
-        } else if (nota === vlrEstrela - 0.5) {
-            estrela.classList.add('meia')
-        }
-    }) 
-}
 
 // Funcao para adicionar o status corretamente nos cards
 function rotuloStatus(status) {
