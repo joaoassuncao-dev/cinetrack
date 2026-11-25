@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { listar } from './api'
 import {filmesInicias, gerarId} from './data/filmes'
 import ListaFilmes from './components/listafilmes'
 import Header from './components/header'
@@ -9,8 +10,22 @@ export default function App() {
   
   const [status, setStatus] = useState("todos");
   const [busca, setBusca] = useState("");
-  const [filmes, setFilmes] = useState(filmesInicias);
+  const [filmes, setFilmes] = useState([]);
   const [editando, setEditando] = useState(null);
+  const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState(null)
+  
+  useEffect(() => {
+    document.title =
+      `Cinetrack (${filmes.length})`
+  }, [filmes.length])
+
+  useEffect(() => {
+    listar()
+      .then((dados) => setFilmes(dados))
+      .catch((erro) => setErro(erro.message))
+      .finally(() => setCarregando(false))
+  }, [])
 
   function atualizar() {
     const visiveis = filmes
@@ -23,8 +38,6 @@ export default function App() {
           .includes(busca.toLowerCase()))
     return visiveis
   }
-
-  
   function adicionar(novoFilme) { 
 
     setFilmes((anteriores) => [
@@ -66,6 +79,23 @@ export default function App() {
     atualizar()
   }
 
+  let conteudo;
+  if (carregando) {
+    conteudo = <p>Carregando...</p>
+  } else if (erro) {
+    conteudo = (
+      <p className='erro'>Erro: {erro}</p>
+    )
+  } else {
+    conteudo = (
+      <ListaFilmes 
+        filmes={atualizar()}
+        aoEditar={setEditando}
+        aoRemover={remover}
+        />
+    )
+  }
+
   return (
     <>
       <Header 
@@ -77,11 +107,7 @@ export default function App() {
         ativo={status}
         aoMudar={setStatus}
       />
-      <ListaFilmes 
-        filmes={atualizar()}
-        aoEditar={setEditando}
-        aoRemover={remover}
-      />
+      <main>{conteudo}</main>
       {editando !== null && (
         <ModalFilme 
           filme={editando}
